@@ -42,9 +42,10 @@ class HolidayController extends AbstractController
             $holidayArr = $request->request->get('holiday');
 
             if ($holidayArr && $holidayArr['year'] && $holidayArr['country']) {
+                $currentDayStatus = $holidaysService->getCurrentDayStatus($holidayArr['country']);
+                
                 if ($holidayArr['year'] < 3000) {
                     $holidaysInfo = $holidaysService->getHolidaysInfo($holidayArr);
-                    $currentDayStatus = $holidaysService->getCurrentDayStatus($holidayArr['country']);
 
                     if (array_key_exists('error', $holidaysInfo)) {
                         $error = $holidaysInfo['error'];
